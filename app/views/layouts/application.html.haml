@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SakuraMarket2
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    - if !admin_signed_in? && !seller_signed_in? && !user_signed_in?
+      = link_to 'ログイン(管理者)', new_admin_session_path
+      = link_to 'ログイン(業者)', new_seller_session_path
+      = link_to 'ログイン(ユーザー)', new_user_session_path
+    = yield
