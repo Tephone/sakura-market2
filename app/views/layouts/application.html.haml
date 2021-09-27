@@ -13,4 +13,6 @@
       = link_to 'ログイン(管理者)', new_admin_session_path
       = link_to 'ログイン(業者)', new_seller_session_path
       = link_to 'ログイン(ユーザー)', new_user_session_path
+    - if user_signed_in?
+      = link_to 'ログアウト', destroy_user_session_path, method: :delete
     = yield
