@@ -1,0 +1,9 @@
+%h2 ユーザー編集画面
+= form_with(model: [:admins, @user]) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :email
+    = f.text_field :email
+  = f.submit

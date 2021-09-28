@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'users/registrations', sessions: 'users/sessions'}
   root 'tops#show'
   resource :top, only:[:show]
+  namespace :admins do
+    resources :users, only: %i[index show edit update destroy]
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

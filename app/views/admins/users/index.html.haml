@@ -1,0 +1,6 @@
+%h2 ユーザー一覧
+- @users.each do |user|
+  %p
+    = user.name
+    = link_to '詳細', admins_user_path(user)
+= paginate @users
