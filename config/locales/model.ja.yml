@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    model:
+      user: ユーザー
+      product: 商品
+    attributes:
+      user:
+        name: 名前
+      product:
+        name: 名前
+        price: 価格
+        seller_id: 業者
+        content: 商品説明
+        display: 表示する

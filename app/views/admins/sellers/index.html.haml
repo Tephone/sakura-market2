@@ -1,0 +1,6 @@
+%h2 業者一覧
+- @sellers.each do |seller|
+  %p
+    = seller.name
+%p= link_to '業者作成', new_admins_seller_path
+= paginate @sellers
