@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def delivery_times_option
-    DeliveryTime.order(id: :desc).map{ |delivery_time| [ "#{delivery_time.start_time}時-#{delivery_time.end_time}時",delivery_time.id] }
+    DeliveryTime.order(id: :desc).map { |delivery_time| ["#{delivery_time.start_time}時-#{delivery_time.end_time}時", delivery_time.id] }
   end
 
   def currency(price)

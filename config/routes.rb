@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: {sessions: 'admins/sessions'}
-  devise_for :sellers, controllers: {sessions: 'sellers/sessions'}
-  devise_for :users, controllers: {registrations: 'users/registrations', sessions: 'users/sessions'}
+  devise_for :admins, controllers: { sessions: 'admins/sessions' }
+  devise_for :sellers, controllers: { sessions: 'sellers/sessions' }
+  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   root 'tops#show'
-  resource :top, only:[:show]
+  resource :top, only: [:show]
   namespace :admins do
     resources :users, only: %i[index show edit update destroy]
     resources :sellers, only: %i[index new create]
