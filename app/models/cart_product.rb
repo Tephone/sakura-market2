@@ -1,6 +1,7 @@
 class CartProduct < ApplicationRecord
   belongs_to :user
   belongs_to :product
+  validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   class << self
     def total_price(cart_products)

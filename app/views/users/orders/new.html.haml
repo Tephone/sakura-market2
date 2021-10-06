@@ -6,6 +6,6 @@
   - @cart_products.each do |cart_product|
     = hidden_field_tag 'order[cart_product_ids][]', cart_product.id
   %p
-    = f.date_field :delivery_date, min: Date.current + 3
+    = f.date_field :delivery_date, min: Order.min_delivery_date, max: Order.max_delivery_date
     = f.select :delivery_time_id, delivery_times_option
   = f.submit
