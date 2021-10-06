@@ -1,2 +1,7 @@
-%h1 Users::Orders#index
-%p Find me in app/views/users/orders/index.html.haml
+%h2 注文一覧
+- @orders.each do |order|
+  - order.ordered_products.each do |ordered_product|
+    %p
+      #{ordered_product.product.name} 計#{ordered_product.amount}
+      = link_to '詳細', users_product_path(ordered_product.product)
+= paginate @orders

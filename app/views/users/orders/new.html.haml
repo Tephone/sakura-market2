@@ -1,2 +1,11 @@
-%h1 Users::Orders#new
-%p Find me in app/views/users/orders/new.html.haml
+%h2 商品購入画面
+= order_total_price(@cart_products)
+%p 配達日時を選択してください
+%p ※3営業日（営業日: 月-金）から14営業日までの間でご指定お願いします
+= form_with(model:[:users, @order]) do |f|
+  - @cart_products.each do |cart_product|
+    = hidden_field_tag 'order[cart_product_ids][]', cart_product.id
+  %p
+    = f.date_field :delivery_date, min: Date.current + 3
+    = f.select :delivery_time_id, delivery_times_option
+  = f.submit
