@@ -8,19 +8,6 @@ class Order < ApplicationRecord
   validates :delivery_date, presence: true
 
   class << self
-    def create_order_and_ordered_product(order, cart_products)
-      order.send_fee = CartProduct.send_fee(cart_products)
-      order.cod_charge = CartProduct.cod_charge(cart_products)
-      order.seller_id = cart_products.first.product.seller_id # cart_productsに含まれている値を一つ取り出したかったため、firstを使用しています
-      ApplicationRecord.transaction do
-        order.save!
-        cart_products.each do |cart_product|
-          OrderedProduct.create!(order_id: order.id, product_id: cart_product.product.id, price: cart_product.product.price, amount: cart_product.amount)
-        end
-        cart_products.each(&:destroy!)
-      end
-    end
-
     def min_delivery_date
       Date.current + 3
     end
@@ -32,6 +19,21 @@ class Order < ApplicationRecord
       max_delivery_date + additional_days
     end
   end
+
+  def create_with(cart_products)
+    self.send_fee = CartProduct.send_fee(cart_products)
+    self.cod_charge = CartProduct.cod_charge(cart_products)
+    self.seller_id = CartProduct.seller(cart_products).id
+    ApplicationRecord.transaction do
+      self.save!
+      cart_products.each do |cart_product|
+        OrderedProduct.create!(order_id: self.id, product_id: cart_product.product.id, price: cart_product.product.price, amount: cart_product.amount)
+      end
+      cart_products.each(&:destroy!)
+    end
+  end
+
+  private
 
   def invalid_holiday
     if self.delivery_date.saturday? || self.delivery_date.sunday?

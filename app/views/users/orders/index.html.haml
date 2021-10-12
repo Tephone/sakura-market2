@@ -1,5 +1,6 @@
 %h2 注文一覧
 - @orders.each do |order|
+  = l order.created_at
   - order.ordered_products.each do |ordered_product|
     %p
       #{ordered_product.product.name} 計#{ordered_product.amount}

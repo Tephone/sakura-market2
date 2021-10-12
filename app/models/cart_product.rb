@@ -4,12 +4,16 @@ class CartProduct < ApplicationRecord
   validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   class << self
+    def seller(cart_products)
+      cart_products.first.product.seller # cart_productsに含まれている値を一つ取り出したかったため、firstを使用しています
+    end
+
     def total_price(cart_products)
       cart_products.sum { |cart_product| cart_product.product.price * cart_product.amount }
     end
 
     def send_fee(cart_products)
-      seller = cart_products.first.product.seller # cart_productsに含まれている値を一つ取り出したかったため、firstを使用しています
+      seller = seller(cart_products)
       seller.send_fee_per_box * (cart_products.count.to_f / seller.capacity_per_box).ceil
     end
 
