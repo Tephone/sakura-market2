@@ -1,0 +1,7 @@
+%h2 商品一覧
+- @products.each do |product|
+  %p
+    = product.name
+    = link_to '詳細', admins_product_path(product)
+  = link_to '商品登録', new_admins_product_path
+= paginate @products

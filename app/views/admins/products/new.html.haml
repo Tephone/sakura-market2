@@ -1,0 +1,12 @@
+%h2 商品作成画面
+= form_with(model: [:admins, @product]) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :price
+    = f.number_field :price
+  %p
+    = f.label :seller_id
+    = f.select :seller_id, sellers_option
+  = f.submit

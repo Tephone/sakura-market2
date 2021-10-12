@@ -10,6 +10,12 @@ module SakuraMarket2
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.time_zone = 'Asia/Tokyo'
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.test_framework false
+    end
 
     # Configuration for the application, engines, and railties goes here.
     #

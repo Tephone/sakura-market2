@@ -1,0 +1,11 @@
+%h2 カートアイテム一覧
+= form_with(url: new_users_order_path, method: :get) do |f|
+  - @cart_products.each do |cart_product|
+    %p
+      = f.check_box 'cart_product_ids[]', { include_hidden: false }, cart_product.id
+      商品: #{cart_product.product.name} 注文数: #{cart_product.amount}
+      = link_to '詳細', users_product_path(cart_product.product)
+      = link_to 'カートから外す', users_cart_product_path(cart_product), method: :delete, data: { confirm: 'カートから外してもよろしいですか？' }
+  = f.submit '購入手続きに進む'
+
+= paginate @cart_products

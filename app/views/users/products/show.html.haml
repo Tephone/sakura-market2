@@ -1,0 +1,4 @@
+%h2= @product.name
+%h2= image_tag @product.image.url if @product.image.present?
+%p= currency(@product.price)
+= link_to 'カートに追加', new_users_product_cart_product_path(@product)
