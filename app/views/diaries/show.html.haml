@@ -1,0 +1,5 @@
+%h2 日記詳細画面
+%p= l @diary.date
+%p= @diary.content
+%p= image_tag @diary.image.url if @diary.image.present?
+= link_to '編集', edit_users_diary_path if current_user == @diary.user

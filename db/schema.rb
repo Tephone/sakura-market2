@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_12_120544) do
+ActiveRecord::Schema.define(version: 2021_10_14_025228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 2021_10_12_120544) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["end_time"], name: "index_delivery_times_on_end_time"
     t.index ["start_time", "end_time"], name: "index_delivery_times_on_start_time_and_end_time", unique: true
+  end
+
+  create_table "diaries", force: :cascade do |t|
+    t.text "content", null: false
+    t.text "image"
+    t.bigint "user_id", null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
   create_table "ordered_products", force: :cascade do |t|
@@ -114,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_10_12_120544) do
 
   add_foreign_key "cart_products", "products"
   add_foreign_key "cart_products", "users"
+  add_foreign_key "diaries", "users"
   add_foreign_key "ordered_products", "orders"
   add_foreign_key "ordered_products", "products"
   add_foreign_key "orders", "delivery_times"

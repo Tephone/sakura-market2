@@ -1,0 +1,5 @@
+= form_with(model: [:users, @diary]) do |f|
+  %p= f.date_field :date
+  %p= f.file_field :image
+  %p= f.text_area  :content
+  %p= f.submit
