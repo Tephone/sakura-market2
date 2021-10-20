@@ -3,4 +3,5 @@
   %p 
     #{diary.date} #{diary.user.name}さん
     = link_to '詳細', diary_path(diary)
+  = render 'diaries/likes/like_form',  diary: diary
 = paginate @diaries

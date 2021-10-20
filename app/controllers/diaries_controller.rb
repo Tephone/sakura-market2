@@ -1,4 +1,4 @@
-class DiariesController < ApplicationController
+class DiariesController < Users::ApplicationController
   def index
     @diaries = Diary.date_desc.page(params[:page])
   end
