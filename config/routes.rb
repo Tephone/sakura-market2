@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: { sessions: 'admins/sessions' }
   devise_for :sellers, controllers: { sessions: 'sellers/sessions' }
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
+  mount LetterOpenerWeb::Engine, at: '/inbox' if Rails.env.development?
   root 'tops#show'
   resource :top, only: [:show]
   namespace :admins do
