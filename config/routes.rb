@@ -20,5 +20,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index new create]
     resources :diaries
   end
-  resources :diaries, only: %i[index show]
+  resources :diaries, only: %i[index show] do
+    resources :comments, only: %i[create destroy], module: :diaries
+  end
 end
