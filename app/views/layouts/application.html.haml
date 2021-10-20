@@ -18,6 +18,7 @@
       = link_to 'ユーザー一覧', admins_users_path
       = link_to '業者一覧', admins_sellers_path
       = link_to '商品一覧', admins_products_path
+      = link_to 'クーポン一覧', admins_coupons_path
       = link_to 'ログアウト', destroy_admin_session_path, method: :delete
 
     - if user_signed_in?

@@ -1,0 +1,10 @@
+- if @coupon.errors.any?
+  - @coupon.errors.full_messages.each do |msg|
+    %li= msg
+
+= form_with(model: [:admins, @coupon]) do |f|
+  %p= f.label :code
+  %p= f.text_field :code, autofocus: true, required: true
+  %p= f.label :point
+  %p= f.number_field :point, min: 1, value: 1
+  = f.submit

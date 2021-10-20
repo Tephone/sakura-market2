@@ -8,4 +8,4 @@
 - @diary.comments.each do |comment|
   %p
     = comment.content
-    = link_to '削除', diary_comment_path(comment.diary.id, comment), method: :delete  if current_user == comment.user
+    = link_to '削除', diary_comment_path(comment.diary.id, comment), method: :delete , data: { confirm: '削除してもよろしいでしょうか？' } if current_user == comment.user

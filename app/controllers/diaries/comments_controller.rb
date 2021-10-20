@@ -5,16 +5,16 @@ class Diaries::CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.diary_id = @diary.id
     if @comment.save
-      redirect_to diary_path(@comment.diary_id)
+      redirect_to diary_path(@comment.diary_id), notice: 'コメントを作成しました'
     else
-      redirect_to diary_path(@comment.diary_id)
+      redirect_to diary_path(@comment.diary_id), alert: 'コメントの作成に失敗しました'
     end
   end
 
   def destroy
     @comment = current_user.comments.find(params[:id])
     @comment.destroy!
-    redirect_to diary_path(@diary)
+    redirect_to diary_path(@diary), notice: 'コメントを削除しました'
   end
 
   private

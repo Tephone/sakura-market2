@@ -1,0 +1,9 @@
+%h2 クーポン一覧
+- @coupons.each do |coupon|
+  %p
+    #{coupon.code} / #{coupon.point}ポイント
+    = link_to '編集', edit_admins_coupon_path(coupon)
+    = link_to '削除', admins_coupon_path(coupon), method: :delete, data: {confirm: '削除してもよろしいですか？'}
+= link_to '新しく作成する', new_admins_coupon_path
+
+= paginate @coupons
