@@ -8,13 +8,17 @@ class Users::UserCouponsController < Users::ApplicationController
   end
 
   def create
-    coupon = Coupon.find { |coupon| coupon.code == params[:user_coupon][:code]}
-    @user_coupon = current_user.user_coupons.new(coupon_id: coupon&.id)
+    @user_coupon = current_user.user_coupons.new(user_coupon_params)
     if @user_coupon.save
       redirect_to users_mypage_path(current_user), notice: 'クーポンを取得しました'
     else
-      flash.now[:alert] = 'クーポンコードが間違っています'
       render :new
     end
+  end
+
+  private
+
+  def user_coupon_params
+    params.require(:user_coupon).permit(:code)
   end
 end

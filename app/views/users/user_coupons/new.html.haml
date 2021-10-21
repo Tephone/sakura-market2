@@ -1,4 +1,7 @@
 %h2 クーポン取得画面
+- if @user_coupon.errors.any?
+  - @user_coupon.errors.full_messages.each do |msg|
+    %li= msg
 %p クーポンコードを入力してください
 = form_with(model: [:users, @user_coupon]) do |f|
   = f.text_field :code, required: true
