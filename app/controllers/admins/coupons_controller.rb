@@ -1,6 +1,6 @@
 class Admins::CouponsController < Admins::ApplicationController
   before_action :set_coupon, only: %i[edit update destroy]
-  
+
   def index
     @coupons = Coupon.default_order.page(params[:page])
   end

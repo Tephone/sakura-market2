@@ -4,7 +4,7 @@ class UserCoupon < ApplicationRecord
   belongs_to :user
   belongs_to :coupon
   attribute :code, :string
-  validates :coupon_id, uniqueness: {scope: :user_id}
+  validates :coupon_id, uniqueness: { scope: :user_id }
   validates :code, presence: true
 
   private

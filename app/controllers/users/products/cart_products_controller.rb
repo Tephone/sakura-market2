@@ -12,7 +12,7 @@ class Users::Products::CartProductsController < Users::ApplicationController
       render :new
     end
   end
-  
+
   private
 
   def cart_product_params

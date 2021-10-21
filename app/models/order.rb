@@ -7,7 +7,9 @@ class Order < ApplicationRecord
   validate :should_be_after_3_to_14_weekdays
   validates :delivery_date, presence: true
   validates :coupon_point, presence: true,
-                            numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) { order.user.available_coupon_point } }
+                           numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) {
+                                                                                                                     order.user.available_coupon_point
+                                                                                                                   } }
 
   class << self
     def min_delivery_date
