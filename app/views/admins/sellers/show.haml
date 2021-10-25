@@ -1,0 +1,5 @@
+%h3= @seller.name
+%p= @seller.email
+%p 一箱あたりの容量: #{@seller.capacity_per_box}
+%p 一箱あたりの送料: #{@seller.send_fee_per_box}
+= link_to '編集', edit_admins_seller_path(@seller)

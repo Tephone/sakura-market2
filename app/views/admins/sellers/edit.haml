@@ -1,0 +1,15 @@
+%h2 業者編集画面
+= form_with(model: [:admins, @seller]) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name, autofocus: true
+  %p
+    = f.label :email
+    = f.email_field :email
+  %p
+    = f.label :capacity_per_box
+    = f.number_field :capacity_per_box
+  %p
+    = f.label :send_fee_per_box
+    = f.number_field :send_fee_per_box
+  = f.submit

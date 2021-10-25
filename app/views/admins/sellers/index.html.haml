@@ -2,5 +2,7 @@
 - @sellers.each do |seller|
   %p
     = seller.name
+    = link_to '詳細', admins_seller_path(seller)
+    = link_to '削除', admins_seller_path(seller), method: :delete, data: { confirm: '削除してもよろしいですか？' }
 %p= link_to '業者作成', new_admins_seller_path
 = paginate @sellers
