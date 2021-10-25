@@ -1,0 +1,11 @@
+%h2 日記詳細画面
+%p= l @diary.date
+%p= @diary.content
+%p= image_tag @diary.image.url if @diary.image.present?
+= link_to '編集', edit_users_diary_path if current_user == @diary.user
+
+= render 'diaries/comments/comment_form'
+- @diary.comments.each do |comment|
+  %p
+    = comment.content
+    = link_to '削除', diary_comment_path(comment.diary.id, comment), method: :delete , data: { confirm: '削除してもよろしいでしょうか？' } if current_user == comment.user

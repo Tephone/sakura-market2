@@ -1,5 +1,5 @@
 %h2 カート追加画面
 %p ※商品数を入力してください
-= form_with(model: @cart_product, url: users_product_cart_products_path) do |f|
+= form_with(model: [:users, :product, @cart_product]) do |f|
   = f.number_field :amount, min: 1
   = f.submit

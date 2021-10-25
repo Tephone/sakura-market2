@@ -1,0 +1,6 @@
+- current_user_like = current_user.likes.find{ |like| like.diary_id == diary.id }
+- if current_user_like.present?
+  = button_to "good!#{diary.likes.count}", diary_like_path(diary, current_user_like), method: :delete
+- else
+  = form_with(model: current_user.likes.new, url: diary_likes_path(diary)) do |f|
+    = f.submit "good!#{diary.likes.count}"

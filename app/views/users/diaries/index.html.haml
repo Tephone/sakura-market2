@@ -1,0 +1,7 @@
+%h2 じぶん日記一覧
+- @diaries.each do |diary|
+  %p
+    = diary.date
+    = link_to '詳細', users_diary_path(diary)
+= link_to '新しく作成', new_users_diary_path
+= paginate @diaries

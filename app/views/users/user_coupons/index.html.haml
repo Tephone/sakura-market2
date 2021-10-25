@@ -1,0 +1,6 @@
+%h2 クーポン取得履歴
+- @coupons.each do |user_coupon|
+  %p
+    = l user_coupon.created_at
+    #{user_coupon.coupon.point}ポイント
+= paginate @coupons

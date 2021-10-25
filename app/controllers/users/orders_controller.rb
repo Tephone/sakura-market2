@@ -11,7 +11,7 @@ class Users::OrdersController < Users::ApplicationController
   def create
     @cart_products = current_user.cart_products.where(id: params[:order][:cart_product_ids])
     @order = current_user.orders.new(order_params)
-    if Order.create_order_and_ordered_product(@order, @cart_products)
+    if @order.create_with(@cart_products)
       redirect_to users_cart_products_path, notice: '商品を購入しました'
     else
       render :new
@@ -21,6 +21,6 @@ class Users::OrdersController < Users::ApplicationController
   private
 
   def order_params
-    params.require(:order).permit %i[cart_product_ids delivery_date delivery_time_id]
+    params.require(:order).permit %i[cart_product_ids delivery_date delivery_time_id coupon_point]
   end
 end
