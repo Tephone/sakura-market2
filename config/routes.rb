@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     resources :diaries
     resources :user_coupons, only: %i[index new create]
   end
+
+  namespace :sellers do
+    resources :products, only: %i[index new create show edit update]
+  end
+
   resources :diaries, only: %i[index show] do
     resources :comments, only: %i[create destroy], module: :diaries
     resources :likes, only: %i[create destroy], module: :diaries

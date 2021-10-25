@@ -5,8 +5,7 @@ class Users::Products::CartProductsController < Users::ApplicationController
 
   def create
     @cart_product = current_user.cart_products.new(cart_product_params)
-    @cart_product.product_id = params[:product_id]
-    if @cart_product.save
+    if @cart_product.create_with(params[:product_id])
       redirect_to users_cart_products_path, notice: 'カートに追加しました'
     else
       render :new

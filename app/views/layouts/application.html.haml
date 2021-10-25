@@ -31,6 +31,10 @@
       = link_to 'クーポン履歴', users_user_coupons_path
       = link_to 'ログアウト', destroy_user_session_path, method: :delete
 
+    - if seller_signed_in?
+      = link_to '商品一覧', sellers_products_path
+      = link_to 'ログアウト', destroy_seller_session_path, method: :delete
+
     %p= notice
     %p= alert
 

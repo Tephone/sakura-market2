@@ -1,7 +1,7 @@
 class CartProduct < ApplicationRecord
   belongs_to :user
   belongs_to :product
-  validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+  validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: ->(cart_product) { cart_product.product.stock } }
 
   class << self
     def seller(cart_products)
@@ -28,6 +28,24 @@ class CartProduct < ApplicationRecord
       elsif 100000 <= total_price
         1000
       end
+    end
+  end
+
+  def create_with(product_id)
+    self.product_id = product_id
+    ApplicationRecord.transaction do
+      self.save!
+      self.product.update!(stock: self.product.stock - self.amount)
+      # カートに追加した分、商品の在庫数を減らす処理
+    end
+
+  end
+
+  def destroy_etc
+    ApplicationRecord.transaction do
+      self.product.update!(stock: self.product.stock + self.amount)
+      self.destroy!
+      # カートから外した分、商品の在庫数を増やす処理
     end
   end
 end
