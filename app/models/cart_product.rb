@@ -29,6 +29,11 @@ class CartProduct < ApplicationRecord
         1000
       end
     end
+
+    def same_seller?(cart_products)
+      products = Product.where(id: cart_products.select(:product_id))
+      products.select(:seller_id).distinct.count == 1
+    end
   end
 
   def create_with(product_id)
@@ -38,7 +43,6 @@ class CartProduct < ApplicationRecord
       self.product.update!(stock: self.product.stock - self.amount)
       # カートに追加した分、商品の在庫数を減らす処理
     end
-
   end
 
   def destroy_etc
