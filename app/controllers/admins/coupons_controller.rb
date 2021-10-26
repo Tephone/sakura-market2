@@ -1,5 +1,5 @@
 class Admins::CouponsController < Admins::ApplicationController
-  before_action :set_coupon, only: %i[edit update destroy]
+  before_action :set_coupon, only: %i[show edit update destroy]
 
   def index
     @coupons = Coupon.default_order.page(params[:page])
@@ -16,6 +16,9 @@ class Admins::CouponsController < Admins::ApplicationController
     else
       render :new
     end
+  end
+
+  def show
   end
 
   def edit

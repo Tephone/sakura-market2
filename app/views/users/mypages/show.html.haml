@@ -1,5 +1,8 @@
-%h2　マイページ
+%h2 マイページ
+%p= image_tag @user.image.url if @user.image.present? 
 %p= @user.name
+%p= @user.nickname
 %p= @user.email
 %p ポイント残数: #{@user.available_coupon_point}
-= link_to 'クーポンを取得する', new_users_user_coupon_path
+%p= link_to '編集する', edit_user_registration_path
+%p= link_to 'クーポンを取得する', new_users_user_coupon_path

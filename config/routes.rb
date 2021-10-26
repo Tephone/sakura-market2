@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[index show edit update destroy]
     resources :sellers
     resources :products
-    resources :coupons, only: %i[index new create show edit update destroy]
+    resources :coupons
   end
   namespace :users do
     resource :mypage, only: [:show]
