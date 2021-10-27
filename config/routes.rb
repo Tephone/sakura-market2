@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     resources :sellers
     resources :products
     resources :coupons
-    resources :orders, only: %i[index show edit update]
   end
   namespace :users do
     resource :mypage, only: [:show]
@@ -19,9 +18,10 @@ Rails.application.routes.draw do
     end
     resources :cart_products, only: %i[index destroy]
     resources :ordered_products, only: %i[create]
-    resources :orders, only: %i[index new create]
+    resources :orders, only: %i[index new create show]
     resources :diaries
     resources :user_coupons, only: %i[index new create]
+    resources :order_cancels, only: [:update] 
   end
 
   namespace :sellers do

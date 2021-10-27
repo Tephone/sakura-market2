@@ -1,6 +1,8 @@
 %h2 注文一覧
 - @orders.each do |order|
-  = l order.delivery_date
+  %p
+    = l order.delivery_date
+    = link_to '詳細', users_order_path(order)
   - order.ordered_products.each do |ordered_product|
     %p
       #{ordered_product.product.name} 計#{ordered_product.amount}

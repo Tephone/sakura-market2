@@ -21,6 +21,10 @@ class Users::OrdersController < Users::ApplicationController
     end
   end
 
+  def show
+    @order = current_user.orders.find(params[:id])
+  end
+
   private
 
   def order_params
