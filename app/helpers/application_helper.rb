@@ -21,6 +21,6 @@ module ApplicationHelper
   end
 
   def order_status_option
-    Order.statuses.map { |k, v| [i18n_status(k), k]}
+    Order.statuses.map { |k, _v| [i18n_status(k), k] }
   end
 end

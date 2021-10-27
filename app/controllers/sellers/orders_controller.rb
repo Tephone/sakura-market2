@@ -11,7 +11,7 @@ class Sellers::OrdersController < Sellers::ApplicationController
   def edit
   end
 
-  def update    
+  def update
     if @order.update(order_params)
       redirect_to sellers_order_path(@order), notice: 'ステータスを更新しました'
     else
@@ -24,7 +24,7 @@ class Sellers::OrdersController < Sellers::ApplicationController
   def set_order
     @order = current_seller.orders.find(params[:id])
   end
-  
+
   def order_params
     params.require(:order).permit(:status)
   end

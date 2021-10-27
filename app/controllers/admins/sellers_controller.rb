@@ -1,6 +1,6 @@
 class Admins::SellersController < Admins::ApplicationController
   before_action :set_seller, only: %i[show edit update destroy]
-  
+
   def index
     @sellers = Seller.default_order.page(params[:page])
   end
@@ -36,7 +36,7 @@ class Admins::SellersController < Admins::ApplicationController
     @seller.destroy!
     redirect_to admins_sellers_path, notice: '業者を削除しました'
   end
-  
+
   private
 
   def create_seller_params

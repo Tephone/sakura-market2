@@ -1,7 +1,9 @@
 class CartProduct < ApplicationRecord
   belongs_to :user
   belongs_to :product
-  validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: ->(cart_product) { cart_product.product.stock } }
+  validates :amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: ->(cart_product) {
+                                                                                                                               cart_product.product.stock
+                                                                                                                             } }
 
   class << self
     def seller(cart_products)

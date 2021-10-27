@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index new create show]
     resources :diaries
     resources :user_coupons, only: %i[index new create]
-    resources :order_cancels, only: [:update] 
+    resources :order_cancels, only: [:update]
   end
 
   namespace :sellers do

@@ -4,7 +4,7 @@ class Sellers::ProductsController < Sellers::ApplicationController
   def index
     @products = current_seller.products.default_order.page(params[:page])
   end
-  
+
   def new
     @product = current_seller.products.new
   end
@@ -23,7 +23,7 @@ class Sellers::ProductsController < Sellers::ApplicationController
 
   def edit
   end
-  
+
   def update
     @product.stock = @product.total_stock(params[:product][:stock])
     if @product.update(update_product_params)
