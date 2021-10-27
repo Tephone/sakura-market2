@@ -1,0 +1,8 @@
+%h2 詳細画面
+%p
+  = i18n_status(@order.status)
+  = link_to 'ステータス切替', edit_sellers_order_path
+%p 到着日：#{@order.delivery_date} #{@order.delivery_time.start_time}時~#{@order.delivery_time.end_time}時
+%p --内訳--
+- @order.ordered_products.each do |ordered_product|
+  %p #{ordered_product.product.name} / 計#{ordered_product.amount}

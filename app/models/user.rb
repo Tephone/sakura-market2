@@ -3,7 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  mount_uploader :image, ImageUploader
   has_many :cart_products, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :diaries, dependent: :destroy
@@ -11,6 +10,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :user_coupons, dependent: :destroy
   has_many :coupons, through: :user_coupons, source: :coupon
+  mount_uploader :image, ImageUploader
   validates :name, presence: true
 
   def available_coupon_point

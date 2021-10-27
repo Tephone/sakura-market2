@@ -33,6 +33,7 @@
 
     - if seller_signed_in?
       = link_to '商品一覧', sellers_products_path
+      = link_to '注文一覧', sellers_orders_path
       = link_to 'ログアウト', destroy_seller_session_path, method: :delete
 
     %p= notice

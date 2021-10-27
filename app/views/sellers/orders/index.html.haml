@@ -1,0 +1,6 @@
+%h2 注文一覧
+- @orders.each do |order|
+  %p 
+    #{order.delivery_date} #{order.delivery_time.start_time}時~#{order.delivery_time.end_time}時
+    = link_to '詳細', sellers_order_path(order)
+= paginate @orders
