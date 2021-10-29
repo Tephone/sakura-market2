@@ -43,7 +43,7 @@ class CartProduct < ApplicationRecord
     ApplicationRecord.transaction do
       self.save!
       self.product.update!(stock: self.product.stock - self.amount)
-      # カートに追加した分、商品の在庫数を減らす処理
+      # NOTE: カートに追加した分、商品の在庫数を減らす処理
     end
   end
 

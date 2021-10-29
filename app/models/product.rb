@@ -8,6 +8,6 @@ class Product < ApplicationRecord
 
   def total_stock(stock)
     stock = stock.to_i
-    total_stock = self.stock + stock
+    self.stock + stock
   end
 end
