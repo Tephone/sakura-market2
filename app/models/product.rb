@@ -6,8 +6,7 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :stock, numericality: { only_integer: true, greater_than_equal_to: 0 }
 
-  def total_stock(stock)
-    stock = stock.to_i
-    self.stock + stock
+  def refresh_stock(stock)
+    self.stock += stock.to_i
   end
 end

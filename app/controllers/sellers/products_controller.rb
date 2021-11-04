@@ -25,7 +25,7 @@ class Sellers::ProductsController < Sellers::ApplicationController
   end
 
   def update
-    @product.stock = @product.total_stock(params[:product][:stock])
+    @product.refresh_stock(params[:product][:stock])
     if @product.update(update_product_params)
       redirect_to sellers_product_path(@product), notice: '商品情報を更新しました'
     else
