@@ -3,8 +3,10 @@ class Order < ApplicationRecord
   belongs_to :seller
   belongs_to :delivery_time
   has_many :ordered_products, dependent: :destroy
+  attribute :cart_products
   validate :invalid_holiday
   validate :validate_weekdays, on: :create
+  validate :seller_validate, on: :create
   validates :delivery_date, presence: true
   validates :coupon_point, presence: true,
                            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) {
@@ -30,6 +32,7 @@ class Order < ApplicationRecord
     self.send_fee = CartProduct.send_fee(cart_products)
     self.cod_charge = CartProduct.cod_charge(cart_products)
     self.seller_id = CartProduct.seller(cart_products).id
+    self.cart_products = cart_products
     ApplicationRecord.transaction do
       self.save!
       cart_products.each do |cart_product|
@@ -56,6 +59,12 @@ class Order < ApplicationRecord
     dates = Order.min_delivery_date..Order.max_delivery_date.to_date
     unless dates.include?(self.delivery_date)
       errors.add(:delivery_date, 'は3営業日（営業日: 月-金）から14営業日までの期間で選択してください')
+    end
+  end
+
+  def seller_validate
+    unless self.cart_products.distinct.count == 1
+      errors.add(:cart_products, 'に複数業者の商品入っています')
     end
   end
 end
