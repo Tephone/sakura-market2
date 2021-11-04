@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resource :top, only: [:show]
   namespace :admins do
     resources :users, only: %i[index show edit update destroy]
-    resources :sellers, only: %i[index new create]
+    resources :sellers
     resources :products
-    resources :coupons, only: %i[index new create edit update destroy]
+    resources :coupons
   end
   namespace :users do
     resource :mypage, only: [:show]
@@ -18,10 +18,17 @@ Rails.application.routes.draw do
     end
     resources :cart_products, only: %i[index destroy]
     resources :ordered_products, only: %i[create]
-    resources :orders, only: %i[index new create]
+    resources :orders, only: %i[index new create show]
     resources :diaries
     resources :user_coupons, only: %i[index new create]
+    resources :order_cancels, only: [:update]
   end
+
+  namespace :sellers do
+    resources :products, only: %i[index new create show edit update]
+    resources :orders, only: %i[index show edit update]
+  end
+
   resources :diaries, only: %i[index show] do
     resources :comments, only: %i[create destroy], module: :diaries
     resources :likes, only: %i[create destroy], module: :diaries

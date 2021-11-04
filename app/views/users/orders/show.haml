@@ -1,0 +1,8 @@
+%h2 詳細画面
+%p= '※キャンセル済み' if @order.status == 'cancel' 
+%p 到着日：#{@order.delivery_date} #{@order.delivery_time.start_time}時~#{@order.delivery_time.end_time}時
+%p --内訳--
+- @order.ordered_products.each do |ordered_product|
+  %p #{ordered_product.product.name} / 計#{ordered_product.amount}
+- if @order.status == 'ordered'
+  %p= button_to '注文をキャンセルする', users_order_cancel_path(@order), method: :put, data: { confirm: '注文をキャンセルしてもよろしいですか？' }

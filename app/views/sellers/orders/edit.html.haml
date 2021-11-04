@@ -1,0 +1,4 @@
+%h3 ステータス切替画面
+= form_with(model: [:sellers, @order]) do |f|
+  = f.select :status,order_status_option
+  = f.submit

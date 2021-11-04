@@ -1,0 +1,7 @@
+%h3 詳細画面  
+%p= @coupon.code
+%p #{@coupon.point}ポイント
+- if @coupon.users.present?
+  %p ※取得済ユーザー
+  - @coupon.users.each do |user|
+    %p= user.name

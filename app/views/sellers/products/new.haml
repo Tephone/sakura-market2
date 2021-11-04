@@ -1,0 +1,9 @@
+%h2 商品作成画面
+= form_with(model: [:sellers, @product]) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name, autofocus: true
+  %p
+    = f.label :price
+    = f.number_field :price
+  = f.submit

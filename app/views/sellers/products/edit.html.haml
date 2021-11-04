@@ -1,0 +1,16 @@
+%h2 商品編集画面
+= form_with(model: [:sellers, @product]) do |f|
+  %p= f.file_field :image
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :price
+    = f.number_field :price
+  %p
+    = f.label :stock
+    = f.number_field :stock, min: 0, value: 0
+  %p
+    = f.label :content
+    = f.text_area :content
+  = f.submit

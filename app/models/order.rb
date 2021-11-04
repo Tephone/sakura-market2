@@ -4,12 +4,14 @@ class Order < ApplicationRecord
   belongs_to :delivery_time
   has_many :ordered_products, dependent: :destroy
   validate :invalid_holiday
-  validate :should_be_after_3_to_14_weekdays
+  validate :should_be_after_3_to_14_weekdays, on: :create
   validates :delivery_date, presence: true
   validates :coupon_point, presence: true,
                            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) {
                                                                                                                      order.user.available_coupon_point
                                                                                                                    } }
+  enum status: %i[ordered ready_to_ship shipped cancel]
+  scope :delivery_date_asc, -> { order(:delivery_date) }
 
   class << self
     def min_delivery_date
@@ -48,7 +50,7 @@ class Order < ApplicationRecord
   def should_be_after_3_to_14_weekdays
     dates = Order.min_delivery_date..Order.max_delivery_date.to_date
     unless dates.include?(self.delivery_date)
-      errors.add(:delivery_sate, 'は3営業日（営業日: 月-金）から14営業日までの期間で選択してください')
+      errors.add(:delivery_date, 'は3営業日（営業日: 月-金）から14営業日までの期間で選択してください')
     end
   end
 end

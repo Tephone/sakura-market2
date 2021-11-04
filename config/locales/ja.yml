@@ -204,3 +204,8 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  status:
+    ordered: 注文済み
+    ready_to_ship: 処理中
+    shipped: 発送済
+    cancel: キャンセル

@@ -1,0 +1,6 @@
+%h2= @product.name
+%h2= image_tag @product.image.url if @product.image.present?
+%p= currency(@product.price)
+%p 在庫: #{@product.stock}
+%p= @product.content
+= link_to '編集', edit_sellers_product_path

@@ -6,6 +6,9 @@ class Users::OrdersController < Users::ApplicationController
   def new
     @cart_products = current_user.cart_products.where(id: params[:cart_product_ids])
     @order = current_user.orders.new
+    unless CartProduct.same_seller?(@cart_products)
+      redirect_to users_cart_products_path, alert: '複数業者の商品入っています'
+    end
   end
 
   def create
@@ -16,6 +19,10 @@ class Users::OrdersController < Users::ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @order = current_user.orders.find(params[:id])
   end
 
   private
