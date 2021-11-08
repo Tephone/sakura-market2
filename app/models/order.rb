@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   attribute :cart_products
   validate :invalid_holiday
   validate :validate_weekdays, on: :create
-  validate :seller_validate, on: :create
+  validate :validate_seller, on: :create
   validates :delivery_date, presence: true
   validates :coupon_point, presence: true,
                            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) {
@@ -62,7 +62,7 @@ class Order < ApplicationRecord
     end
   end
 
-  def seller_validate
+  def validate_seller
     unless self.cart_products.distinct.count == 1
       errors.add(:cart_products, 'に複数業者の商品入っています')
     end
