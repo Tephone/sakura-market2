@@ -3,15 +3,17 @@ class Order < ApplicationRecord
   belongs_to :seller
   belongs_to :delivery_time
   has_many :ordered_products, dependent: :destroy
+  attribute :cart_products
   validate :invalid_holiday
-  validate :should_be_after_3_to_14_weekdays, on: :create
+  validate :validate_weekdays, on: :create
+  validate :validate_seller, on: :create
   validates :delivery_date, presence: true
   validates :coupon_point, presence: true,
                            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: ->(order) {
                                                                                                                      order.user.available_coupon_point
                                                                                                                    } }
   enum status: %i[ordered ready_to_ship shipped cancel]
-  scope :delivery_date_asc, -> { order(:delivery_date) }
+  scope :delivery_date_order, -> { order(:delivery_date) }
 
   class << self
     def min_delivery_date
@@ -30,6 +32,7 @@ class Order < ApplicationRecord
     self.send_fee = CartProduct.send_fee(cart_products)
     self.cod_charge = CartProduct.cod_charge(cart_products)
     self.seller_id = CartProduct.seller(cart_products).id
+    self.cart_products = cart_products
     ApplicationRecord.transaction do
       self.save!
       cart_products.each do |cart_product|
@@ -37,6 +40,11 @@ class Order < ApplicationRecord
       end
       cart_products.each(&:destroy!)
     end
+  end
+
+  def cancel(order)
+    order.status = 'cancel'
+    order.save!
   end
 
   private
@@ -47,10 +55,16 @@ class Order < ApplicationRecord
     end
   end
 
-  def should_be_after_3_to_14_weekdays
+  def validate_weekdays
     dates = Order.min_delivery_date..Order.max_delivery_date.to_date
     unless dates.include?(self.delivery_date)
       errors.add(:delivery_date, 'は3営業日（営業日: 月-金）から14営業日までの期間で選択してください')
+    end
+  end
+
+  def validate_seller
+    unless self.cart_products.distinct.count == 1
+      errors.add(:cart_products, 'に複数業者の商品入っています')
     end
   end
 end

@@ -47,7 +47,7 @@ class CartProduct < ApplicationRecord
     end
   end
 
-  def destroy_etc
+  def destroy_and_update_product_stock
     ApplicationRecord.transaction do
       self.product.update!(stock: self.product.stock + self.amount)
       self.destroy!

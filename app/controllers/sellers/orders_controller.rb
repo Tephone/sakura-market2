@@ -2,7 +2,7 @@ class Sellers::OrdersController < Sellers::ApplicationController
   before_action :set_order, only: %i[show edit update]
 
   def index
-    @orders = current_seller.orders.delivery_date_asc.page(params[:page])
+    @orders = current_seller.orders.delivery_date_order.page(params[:page])
   end
 
   def show
